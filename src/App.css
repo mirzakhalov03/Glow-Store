@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Magilio';
+  src: url('./fonts/MagilioRegular-Yzv2O.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.pink-glowing-text {
+  font-size: 55px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 
+    0 0 5px #fff, 
+    0 0 10px #fff, 
+    0 0 20px #fff, 
+    0 0 30px #fbaef2, 
+    0 0 40px #fbaef2, 
+    0 0 50px #fbaef2, 
+    0 0 60px #fbaef2;
+}
+
+.lime-glowing-text {
+  font-size: 55px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 
+    0 0 5px #fff, 
+    0 0 10px #fff, 
+    0 0 20px #fff, 
+    0 0 30px #ccff00, 
+    0 0 40px #ccff00, 
+    0 0 50px #ccff00, 
+    0 0 60px #ccff00;
+    
+}
+

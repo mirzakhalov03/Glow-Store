@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container{
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans"; 
+}
+
+.card-title{
+    font-family: "Signika Negative", sans-serif;
+}
+
+.singlePage-title{
+    font-family: "Unbounded", sans-serif;
+}
+
+.color{
+    color: #FBAEB4;
+    color: #FFC0CB;
+    color: #fbaef2;
+    color: #ccff00;
+    color: #d3d3d3;
+}
+
+
+
