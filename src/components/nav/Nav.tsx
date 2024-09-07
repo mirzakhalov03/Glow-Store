@@ -14,7 +14,7 @@ const Nav = () => {
   const cartCount = cartItems.length;
 
   return (
-    <div >
+    <div className="sticky top-0 z-10">
       <div className="w-full bg-[#FBAEB4] ">
         <div className="w-full container py-2 flex items-center justify-between">
           <h1 className="text-4xl font-bold text-[white]">GlowStore</h1>
