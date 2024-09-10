@@ -11,6 +11,7 @@ import { RootState } from "../../redux/store";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { addToCart } from "../../redux/slices/cart-slice";
 import { useState, useEffect } from "react";
+import Footer from "../../components/footer/Footer";
 
 const SinglePage = () => {
   const [currency, setCurrency] = useState("usd");
@@ -80,7 +81,7 @@ const SinglePage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#f1f1f1]">
+    <div className="w-full min-h-screen bg-[#f1f1f1]">
       <Nav />
       <div className="container ">
         <div className="w-full p-5">
@@ -226,6 +227,11 @@ const SinglePage = () => {
           </div>
         </div>
       </div>
+      <div className="h-20"></div>
+      <div className="h-20"></div>
+      <div className="h-20"></div>
+
+      <Footer />
     </div>
   );
 };

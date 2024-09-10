@@ -1,6 +1,7 @@
 import CardsHug from "../../components/cardsHug/CardsHug"
 import Header from "../../components/header/Header"
 import Nav from "../../components/nav/Nav"
+import Footer from "../../components/footer/Footer"
 
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
         <CardsHug dynamicTypeName="Lipstick" />
         <CardsHug dynamicTypeName="Mascara" />
         <CardsHug dynamicTypeName="Nail_polish" />
+        <Footer />
      
     </>
   )
