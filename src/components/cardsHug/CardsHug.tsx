@@ -49,7 +49,7 @@ const CardsHug = ({ dynamicTypeName }: any) => {
                                 {expandedTypes[type] ? "Show less..." : "Show more..."}
                             </button>
                         </div>
-                        <div className="w-full mt-2 mx-auto justify-evenly flex flex-wrap gap-4 ">
+                        <div className="w-full mt-2 mx-auto justify-evenly flex flex-wrap gap-2 ">
                             {groupedProducts[type]
                                 .slice(4, expandedTypes[type] ? groupedProducts[type].length : 8)
                                 .map((item: any) => (
