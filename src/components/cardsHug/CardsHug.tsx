@@ -40,7 +40,7 @@ const CardsHug = ({ dynamicTypeName }: any) => {
             <div className="w-full">
                 {Object.keys(groupedProducts).map((type) => (
                     <div key={type} className="mb-10">
-                        <div className="flex w-full items-center justify-between">
+                        <div className="flex flex-wrap w-full items-center justify-between">
                             <div className="type text-2xl text-[#ba5e5e]">{type.charAt(0).toUpperCase() + type.slice(1)}</div>
                             <button
                                 onClick={() => handleShowMore(type)}
@@ -49,7 +49,7 @@ const CardsHug = ({ dynamicTypeName }: any) => {
                                 {expandedTypes[type] ? "Show less..." : "Show more..."}
                             </button>
                         </div>
-                        <div className="w-full mt-2 grid gap-4 grid-cols-4">
+                        <div className="w-full mt-2 mx-auto justify-evenly flex flex-wrap gap-4 ">
                             {groupedProducts[type]
                                 .slice(4, expandedTypes[type] ? groupedProducts[type].length : 8)
                                 .map((item: any) => (

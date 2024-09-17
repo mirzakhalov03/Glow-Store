@@ -11,7 +11,8 @@ import { RootState } from "../../redux/store";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { addToCart } from "../../redux/slices/cart-slice";
 import { useState, useEffect } from "react";
-import Footer from "../../components/footer/Footer";
+import parse from 'html-react-parser';
+import './singlePage.scss';
 
 const SinglePage = () => {
   const [currency, setCurrency] = useState("usd");
@@ -21,6 +22,15 @@ const SinglePage = () => {
   const { data, error, isLoading } = useGetSingleProductQuery(id);
 
   const [isInCart, setIsInCart] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const truncateName = (name: string, isExpanded: boolean, limit = 20) => {
+    if (isExpanded || name.length <= limit) {
+      return name;
+    }
+    return `${name.slice(0, limit)}`;
+  };
+  
 
   useEffect(() => {
     const cartItem = localStorage.getItem(data?.id);
@@ -58,10 +68,10 @@ const SinglePage = () => {
   };
 
   const convertPrice = (priceInUsd: number) => {
-    const conversionRate = 12645;
+    const conversionRate = 12700;
     return currency === "usd"
       ? priceInUsd
-      : (priceInUsd * conversionRate).toFixed(2);
+      : (priceInUsd * conversionRate).toFixed(0);
   };
 
   const handleAddToCart = () => {
@@ -81,15 +91,15 @@ const SinglePage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#f1f1f1]">
+    <div className="w-full min-h-screen bg-[#f1f1f1] relative ">
       <Nav />
       <div className="container ">
-        <div className="w-full p-5">
+        <div className="w-full singlePageMob p-5">
           <h1 className="text-center text-[#d26b6b] tracking-wider singlePage-title text-4xl">
             {data?.name || "SinglePage"}
           </h1>
         </div>
-        <div className="w-full flex min-h-[500px] bg-white rounded-xl overflow-hidden shadow-xl justify-between">
+        <div className="w-full singleWrapperMob flex min-h-[500px] bg-white rounded-xl overflow-hidden shadow-xl justify-between">
           <div
             style={{
               backgroundImage: `url(${placeholder})`,
@@ -97,7 +107,7 @@ const SinglePage = () => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-            className="w-[600px]  h-[440px] relative"
+            className="w-[600px] singleImgMob  h-[440px] relative"
           >
             <img
               className="object-contain w-full h-full"
@@ -116,7 +126,7 @@ const SinglePage = () => {
                 <AiOutlineHeart className="text-2xl" />
               )}
             </button>
-            <div className="w-full px-4 py-2 flex items-center justify-center gap-5">
+            <div className="w-full singleActionsMob px-4 py-2 flex items-center justify-center gap-5">
               <select
                 className="px-4 py-2 border-2 border-[dodgerblue] rounded-full outline-none"
                 value={currency}
@@ -135,7 +145,7 @@ const SinglePage = () => {
               </h2>
               <button
                 onClick={handleAddToCart}
-                className={`px-6 py-2 font-bold rounded-full flex items-center gap-2 ${
+                className={`singleCartBtnMob px-6 py-2 font-bold rounded-full flex items-center gap-2 ${
                   isInCart
                     ? "bg-white text-[dodgerblue] border-2 border-[dodgerblue]"
                     : "bg-[dodgerblue] text-white border-2 border-[dodgerblue] hover:bg-white hover:text-[dodgerblue]"
@@ -146,7 +156,7 @@ const SinglePage = () => {
               </button>
             </div>
           </div>
-          <div className="w-[50%] py-5 pr-5">
+          <div className="w-[50%] singleInfoMob py-5 pr-5">
             <div className="w-full flex justify-between">
               <div className="flex flex-col gap-4">
                 <h2 className="text-[#ba5e5e] text-2xl">
@@ -170,22 +180,26 @@ const SinglePage = () => {
                   </span>{" "}
                   's site
                 </a>
-                <h3 className="flex gap-1 items-center mt-1  text-2xl text-[gold]">
+                <h2 className="flex gap-1 items-center mt-1  text-2xl text-[gold]">
                   <span className="text-[#666666]">Rating:</span>
                   <AiFillStar />
                   <AiFillStar />
                   <AiFillStar />
                   <AiFillStar />
                   <AiFillStar />
-                </h3>
+                </h2>
               </div>
             </div>
             <br />
             <hr />
             <br />
             <div className="w-full min-h-[120px] overflow-y-auto">
-              <p className="text-[#666666] text-2xl">About the product:</p>
-              <p className="text-[#666666] text-xl">{data?.description}</p>
+              <h2 className="text-[#666666] singleInfoTitleMob text-2xl">About the product:</h2>
+              <p className="text-[#666666] text-xl">
+                {
+                  parse(data?.description || "")
+                }
+              </p>
             </div>
             <br />
             <hr />
@@ -213,7 +227,7 @@ const SinglePage = () => {
                       style={{
                         color: color.hex_value,
                         fontWeight: "bold",
-                        fontSize: "16px",
+                        fontSize: "14px",
                       }}
                     >
                       {color.colour_name}
@@ -227,11 +241,35 @@ const SinglePage = () => {
           </div>
         </div>
       </div>
-      <div className="h-20"></div>
+      <div className=" hidden mobCartBtn">
+        <h3>
+          {truncateName(data?.name, isExpanded)}
+          {data?.name.length > 15 && (
+            <span
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="cursor-pointer text-blue-500"
+            >
+              {isExpanded ? " (hide)" : "....."}
+            </span>
+          )}
+        </h3>
+        <h3 className="text-[goldenrod]">${data?.price}</h3>
+        <button
+                onClick={handleAddToCart}
+                className={ `px-6 py-2 font-bold  rounded-full flex justify-center items-center gap-2  ${
+                  isInCart
+                    ? "bg-white text-[dodgerblue] border-2 border-[dodgerblue]"
+                    : "bg-[dodgerblue] text-white border-2 border-[dodgerblue] hover:bg-white hover:text-[dodgerblue]"
+                }`}
+              >
+                <BsBagCheckFill className="text-2xl" />
+                <span>{isInCart ? "Added" : "Add to cart"}</span>
+              </button>
+      </div>
       <div className="h-20"></div>
       <div className="h-20"></div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

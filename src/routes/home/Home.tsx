@@ -9,7 +9,7 @@ const Home = () => {
     <>
         <Nav />
         <Header />
-        <h1 className='text-center mt-[100px] text-[#ba5e5e] text-4xl font-[Magilio] tracking-wide'>Our Best Products</h1>
+        <h1 className='text-center text-[#ba5e5e] text-4xl font-[Magilio] tracking-wide'>Our Best Products</h1>
         <CardsHug dynamicTypeName="blush" />
         <CardsHug dynamicTypeName="bronzer" />
         <CardsHug dynamicTypeName="eyebrow" />

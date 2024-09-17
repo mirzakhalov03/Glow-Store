@@ -8,6 +8,7 @@ import { RootState } from '../../redux/store';
 import { addToCart } from '../../redux/slices/cart-slice';
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import './card.scss';
 
 interface CardProps {
     data: any;
@@ -49,10 +50,10 @@ const Card = ({ data }: CardProps) => {
   };
 
   return (
-    <div className="relative w-[300px] shadow-xl rounded-lg overflow-hidden bg-[#fcafbc1d]">
+    <div className="relative cardMob flex flex-col max-w-[300px] w-[100%] shadow-xl rounded-lg overflow-hidden bg-[#fcafbc1d]">
       <div 
-        className="img w-full h-[300px] relative bg-cover bg-center"
-        style={{ backgroundImage: `url(${placeholder})`, backgroundSize: '200px', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}  
+        className="img w-full h-[300px] relativ  bg-cover bg-center"
+        style={{ backgroundImage: `url(${placeholder})`, backgroundSize: '150px', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}  
       >
         {data.image_link && (
           <Link to={`/product/${data.id}`}> <img className="w-full h-full object-cover" src={data.image_link} alt='' /></Link>
@@ -67,9 +68,9 @@ const Card = ({ data }: CardProps) => {
       <div className="text px-2 pt-1">
         <h1 className="text-[#ba5e5e] card-title text-3xl">{data.name}</h1>
         <p className="text-[#333] text-lg">Price: ${data.price}</p>
-        <p className="text-[#333] text-lg">Brand: {data.brand}</p>
+        <p className="text-[#333] text-lg">Brand: {data?.brand?.charAt(0).toUpperCase() + data?.brand?.slice(1)}</p>
       </div>
-      <div className="px-2 flex flex-wrap gap-1">
+      <div className="colors px-2 flex flex-wrap gap-1">
         {data.product_colors?.slice(0, 6).map((color: any, index: number) => (
           <span
             key={index}
@@ -80,7 +81,7 @@ const Card = ({ data }: CardProps) => {
         ))}
         {data.product_colors?.length > 6 && (
           <span
-            className="w px-2 h items-center rounded-full block bg-gray-400 opacity-50"
+            className="rounded-full text-[10px] flex items-center justify-center bg-gray-400 opacity-50"
             title="More colors"
           >...</span>
         )}
@@ -92,12 +93,12 @@ const Card = ({ data }: CardProps) => {
             className="bg-[#000000bd] text-[#ba5e5e] px-4 py-2 rounded-r-full"
             onClick={handleAddToCart}
             style={{ border: '1px solid #000000bd', backgroundColor: 'white' }}
-          ><BsBagCheckFill className="text-2xl text-[#000000bd]"/>
+          ><BsBagCheckFill className="sm:text-lg lg:text-2xl text-[#000000bd]"/>
           </button>) : (<button
             className="bg-[#000000bd] text-white px-4 py-2 rounded-r-full"
             onClick={handleAddToCart}
           >
-            <BsBagPlusFill className="text-2xl"/>
+            <BsBagPlusFill className="sm:text-lg  lg:text-2xl"/>
           </button>)
         }
       </div>
