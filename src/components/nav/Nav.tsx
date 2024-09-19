@@ -16,6 +16,7 @@ const Nav = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
 //   const [search, setSearch] = useState("");
 
+
   const count = likedItems.length;
   const cartCount = cartItems.length;
 
