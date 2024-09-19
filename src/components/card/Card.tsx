@@ -18,7 +18,7 @@ const Card = ({ data }: CardProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const likedItems = useSelector((state: RootState) => state.liked.liked);
-  const isLiked = likedItems.includes(data.id);
+  const isLiked = likedItems.some((item) => item.id === data.id);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const isInCart = cartItems.some((item) => item.id === data.id);
 
@@ -26,7 +26,14 @@ const Card = ({ data }: CardProps) => {
     if (isLiked) {
       dispatch(unlike(data.id));
     } else {
-      dispatch(like(data.id));
+      const product = {
+        id: data.id,
+        name: data.name,
+        price: data.price,
+        image: data.image_link,
+        brand: data?.brand?.charAt(0).toUpperCase() + data?.brand?.slice(1),
+      };
+      dispatch(like(product));
     }
   };
 
@@ -41,9 +48,6 @@ const Card = ({ data }: CardProps) => {
     dispatch(addToCart(product));
     console.log('Added to cart');
   };
-
-
-
 
   const handleSinglePage = () => {
     navigate(`/product/${data.id}`);
@@ -107,3 +111,4 @@ const Card = ({ data }: CardProps) => {
 };
 
 export default Card;
+

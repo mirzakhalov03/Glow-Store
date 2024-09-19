@@ -1,100 +1,100 @@
-import Nav from "../../components/nav/Nav"
-import { Space, Table, Tag } from 'antd';
+import Nav from "../../components/nav/Nav";
+import { Space, Table, Button } from 'antd';
 import type { TableProps } from 'antd';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
-interface DataType {
+interface LikedItem {
   key: string;
   name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  price: number;
+  id: string;
 }
 
+const Liked = () => {
+  const [likedItems, setLikedItems] = useState<LikedItem[]>([]);
+  const navigate = useNavigate(); 
 
-const columns: TableProps<DataType>['columns'] = [
+  
+  useEffect(() => {
+    const storedLikedItems = localStorage.getItem('liked');
+    if (storedLikedItems) {
+      const parsedItems = JSON.parse(storedLikedItems);
+  
+      setLikedItems(parsedItems.map((item: any, index: number) => ({
+        key: String(index + 1),
+        name: item.name,
+        price: item.price,
+        id: item.id ? String(item.id) : ''  
+      })));
+    }
+  }, []);
+  
+
+
+  const handleDelete = (key: string) => {
+    const updatedLikedItems = likedItems.filter(item => item.key !== key);
+    setLikedItems(updatedLikedItems);
+    localStorage.setItem('liked', JSON.stringify(updatedLikedItems));
+    window.location.reload();
+  };
+
+  const handleNavigate = (id: string) => {
+    console.log('Navigating to product with ID:', id);  
+    navigate(`/product/${id}`);
+  };
+
+  const columns: TableProps<LikedItem>['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'key',
+      key: 'key',
+    },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
+      render: (text, data) => (
+        <span
+          onClick={() => handleNavigate(data.id)} 
+          style={{ color: 'dodgerblue', cursor: 'pointer', textDecoration: 'underline' }} 
+        >
+          {text}
+        </span>
       ),
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (price) => `$${price}`,
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          <Button
+            type="primary"
+            danger
+            onClick={() => handleDelete(record.key)}
+          >
+            Remove
+          </Button>
         </Space>
       ),
     },
   ];
-  
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
 
-const Liked = () => {
   return (
     <>
-        <Nav />
-        <div className="w-full container">
-            <h1 className="text-center text-4xl p-5 text-[dodgerblue] tracking-wider font-[Magilio]">Liked Products</h1>
-            <Table columns={columns} dataSource={data} />;
-        </div>
+      <Nav />
+      <div className="w-full container">
+        <h1 className="text-center text-4xl p-5 text-[dodgerblue] tracking-wider font-[Magilio]">Liked Products</h1>
+        <Table columns={columns} dataSource={likedItems} />
+      </div>
     </>
-    
-  )
-}
+  );
+};
 
-export default Liked
+export default Liked;

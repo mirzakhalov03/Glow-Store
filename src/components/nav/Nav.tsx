@@ -1,6 +1,6 @@
 import { AiOutlineHeart } from "react-icons/ai"; 
 import { BsFillBagCheckFill } from "react-icons/bs";
-import { AiOutlineSearch } from "react-icons/ai";
+// import { AiOutlineSearch } from "react-icons/ai";
 import { Badge } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -8,34 +8,34 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import NavStory from "../navStory/NavStory";
 import { navStoryData } from "../../db/headerDB";
-import { useState } from "react";
+// import { useState } from "react";
 import './nav.scss'
 
 const Nav = () => {
   const likedItems = useSelector((state: RootState) => state.liked.liked);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
-  const [search, setSearch] = useState("");
+//   const [search, setSearch] = useState("");
 
   const count = likedItems.length;
   const cartCount = cartItems.length;
 
-  const handleSearchChange = (e: any) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    setSearch(e.target.value);
-  }
+//   const handleSearchChange = (e: any) => {
+//     e.preventDefault();
+//     console.log(e.target.value);
+//     setSearch(e.target.value);
+//   }
 
-  const handleSearchSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(search);
-  }
+//   const handleSearchSubmit = (e: any) => {
+//     e.preventDefault();
+//     console.log(search);
+//   }
 
   return (
     <div className="sticky top-0 z-10">
       <div className="w-full bg-[#FBAEB4] ">
         <div className="w-ful container py-2 flex items-center justify-between">
           <NavLink to="/" className="logoMob text-center px-5 py-1 bg-white rounded-3xl"><h1 className="text-3xl font-bold tracking-wide text-[#FBAEB4]">GlowStore</h1></NavLink>
-          <form className="navInput flex items-center justify-center gap-[3px]">
+          {/* <form className="navInput flex items-center justify-center gap-[3px]">
             <input
             onChange={(e) => handleSearchChange(e)}
               type="text"
@@ -45,8 +45,8 @@ const Nav = () => {
             <button onSubmit={(e) => handleSearchSubmit(e)} className="">
               <AiOutlineSearch className="bg-[#ffffffda] text-[31px] rounded-r-full px-1 py-1" />
             </button>
-          </form>
-          <div className="flex gap-5 items-center justify-center text-white">
+          </form> */}
+          <div className="flex gap-6 mr-2 items-center justify-center text-white">
             <Badge  count={count}>
               <Link to="/liked"><AiOutlineHeart className="text-3xl iconMob hover:cursor-pointer text-white" /></Link>
             </Badge>

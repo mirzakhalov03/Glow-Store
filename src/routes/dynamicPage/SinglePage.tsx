@@ -39,7 +39,8 @@ const SinglePage = () => {
     }
   }, [data?.id]);
 
-  const isLiked = likedItems.includes(data?.id);
+  const isLiked = likedItems.some((item) => item?.id === data?.id);
+
 
   if (isLoading) {
     return (
@@ -57,7 +58,14 @@ const SinglePage = () => {
     if (isLiked) {
       dispatch(unlike(data.id));
     } else {
-      dispatch(like(data.id));
+      const product = {
+        id: data.id,
+        name: data.name,
+        price: data.price,
+        image: data.image_link,
+        brand: data?.brand?.charAt(0).toUpperCase() + data?.brand?.slice(1),
+      };
+      dispatch(like(product));
     }
   };
 

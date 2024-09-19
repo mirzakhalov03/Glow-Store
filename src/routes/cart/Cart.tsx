@@ -4,19 +4,20 @@ import type { TableProps } from 'antd';
 import { removeFromCart } from "../../redux/slices/cart-slice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 interface CartItem {
   key: string;
   name: string;
-  brand: string;
   product_type: string;
   price: number;
+  id: string; 
 }
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  
+  const navigate = useNavigate();
   const reduxCartItems = useSelector((state: any) => state.cart.cart); 
   
   useEffect(() => {
@@ -25,8 +26,13 @@ const Cart = () => {
       name: item.name,
       product_type: item.product_type,
       price: item.price,
+      id: item.id 
     })));
   }, [reduxCartItems]);
+
+  const handleNavigate = (id: string) => {
+    navigate(`/product/${id}`);
+  };
 
   const columns: TableProps<CartItem>['columns'] = [
     {
@@ -38,11 +44,14 @@ const Cart = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-    },
-    {
-      title: 'Product Type',
-      dataIndex: 'product_type',
-      key: 'product_type',
+      render: (text, data) => (
+        <span
+          onClick={() => handleNavigate(data.id)}  
+          style={{ color: 'dodgerblue', cursor: 'pointer', textDecoration: 'underline' }} 
+        >
+          {text}
+        </span>
+      ),
     },
     {
       title: 'Price',

@@ -3,6 +3,7 @@ import Home from './home/Home'
 import SinglePage from './dynamicPage/SinglePage'
 import Liked from './liked/Liked'
 import Cart from './cart/Cart'
+import Logo from './logo/Logo'
 
 const RouteController = () => {
     return useRoutes([
@@ -21,6 +22,10 @@ const RouteController = () => {
         {
             path: "/cart",
             element: <Cart />
+        },
+        {
+            path: 'logo',
+            element: <Logo />
         }
     ])
 }
