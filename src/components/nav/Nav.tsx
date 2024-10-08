@@ -4,7 +4,7 @@ import { BsFillBagCheckFill } from "react-icons/bs";
 import { Badge } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import NavStory from "../navStory/NavStory";
 import { navStoryData } from "../../db/headerDB";
@@ -24,7 +24,6 @@ const Nav = () => {
   const count = likedItems.length;
   const cartCount = cartItems.length;
   const [user, setUser] = useState<any>({});
-  const navigate = useNavigate();
 
   useEffect (() => {
     async function getUser() {
