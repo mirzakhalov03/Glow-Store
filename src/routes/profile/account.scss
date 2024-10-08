@@ -1,0 +1,53 @@
+@media screen and (max-width: 900px) {
+    .accountMob{
+        .email{
+            h2{
+                font-size: 18px;
+            }
+        }
+        .cardNumber{
+            width: 200px;
+        }
+        .date{
+            width: 80px;
+        }
+    }
+    
+}
+
+@media screen and (max-width: 750px) {
+    .accountMob{
+        padding: 10px;
+        
+        .email{
+            h2{
+                font-size: 16px;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width: 650px) {
+    .accountMob{
+        width: 95%;
+        padding: 10px;
+        flex-direction: column;
+        
+        .email{
+            h2{
+                font-size: 16px;
+            }
+        }
+    }
+    .halfMob{
+        width: 100%;
+    }
+    .profileMob{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    
+}
