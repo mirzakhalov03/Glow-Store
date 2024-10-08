@@ -1,8 +1,8 @@
-import { Input, DatePicker, Form, Button } from "antd"
+import { Input, Form, Button } from "antd"
 import Nav from "../../components/nav/Nav"
 // import type { DatePickerProps } from 'antd';
 import { useState, useEffect } from "react";
-import type { GetProps } from 'antd';
+// import type { GetProps } from 'antd';
 // import dayjs from 'dayjs';
 import "./account.scss"
 
