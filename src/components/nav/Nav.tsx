@@ -23,7 +23,7 @@ const Nav = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const count = likedItems.length;
   const cartCount = cartItems.length;
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<any>();
 
   useEffect (() => {
     async function getUser() {
@@ -53,11 +53,9 @@ const Nav = () => {
             user
             ? 
             <p className="text-white">Hello, <NavLink to="/account">{user?.user_metadata?.full_name}</NavLink></p>
-            // If user is not logged in
             : 
             <div className="flex items-center justify-center gap-5 text-white">
               <NavLink className="px-3 py-1 bg-[#ffffff44] border-2 border-white text-[#] rounded-xl" to="auth">Log in</NavLink>
-              <NavLink to="auth/register">Sign up</NavLink>
             </div>
 
           }
